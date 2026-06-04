@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="application-name" content="KLIENTE" />
+    <meta name="author" content="Mitnick-Connect" />
+    <meta name="creator" content="Mitnick-Connect" />
+    <meta
+      name="description"
+      content="KLIENTE - Sistema de concursos, promociones y fidelización creado por Mitnick-Connect."
+    />
+
+    <title>KLIENTE | © by Mitnick-Connect</title>
+
+    <style>
+      .mitnick-connect-stamp {
+        position: absolute;
+        top: 8px;
+        right: 14px;
+        z-index: 40;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(2, 6, 23, 0.32);
+        color: rgba(255, 255, 255, 0.76);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0;
+        pointer-events: none;
+        user-select: none;
+        backdrop-filter: blur(4px);
+        text-transform: none;
+      }
+
+      @media (max-width: 768px) {
+        .mitnick-connect-stamp {
+          top: 6px;
+          right: 8px;
+          font-size: 0.56rem;
+          padding: 3px 7px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="mitnick-connect-stamp">© by Mitnick-Connect</div>
+
+    <div id="root"></div>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
