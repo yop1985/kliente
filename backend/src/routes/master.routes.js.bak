@@ -25,7 +25,6 @@ router.post("/businesses/:businessId/payment", registerMasterBusinessPayment);
 router.post("/businesses/:businessId/suspend", suspendMasterBusiness);
 router.post("/businesses/:businessId/reactivate", reactivateMasterBusiness);
 router.post("/businesses/:businessId/cancel", cancelMasterBusiness);
-router.post("/businesses/:businessId/delete", deleteMasterBusiness);
 
 router.post("/users/unlock", unlockMasterAdminUser);
 

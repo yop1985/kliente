@@ -569,44 +569,6 @@ export default function MasterDashboardPage() {
     }
   }
 
-  async function handleDeleteBusiness(business) {
-    const firstConfirm = window.confirm(
-      `Esta acción eliminará definitivamente el comercio "${business.name}" y sus datos asociados. ¿Quieres continuar?`
-    );
-
-    if (!firstConfirm) {
-      return;
-    }
-
-    const confirmation = window.prompt(
-      `Para eliminar definitivamente "${business.name}", escribe ELIMINAR:`
-    );
-
-    if (confirmation === null) {
-      return;
-    }
-
-    if (confirmation.trim() !== "ELIMINAR") {
-      showError("Eliminación cancelada. Debes escribir ELIMINAR exactamente.");
-      return;
-    }
-
-    setLoadingActionId(`delete-${business.id}`);
-
-    try {
-      await deleteMasterBusiness({
-        businessId: business.id,
-        confirmation: confirmation.trim(),
-      });
-
-      showSuccess(`Comercio ${business.name} eliminado definitivamente.`);
-      await reloadBusinesses();
-    } catch (error) {
-      showError(error.message || "No se pudo eliminar el comercio.");
-    } finally {
-      setLoadingActionId("");
-    }
-  }
   async function handleUnlockUser(event) {
     event.preventDefault();
 
@@ -1641,6 +1603,3 @@ const styles = {
     gap: 8,
   },
 };
-
-
-

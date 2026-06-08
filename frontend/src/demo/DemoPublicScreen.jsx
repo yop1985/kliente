@@ -35,8 +35,20 @@ export default function DemoPublicScreen() {
     `,
   };
 
+  function backToAdmin() {
+    window.location.href = "/demo-admin";
+  }
+
   return (
-    <main className="demo-page" style={backgroundStyle}>
+    <main className="demo-page demo-public-page" style={backgroundStyle}>
+      <button
+        className="demo-floating-back-button"
+        type="button"
+        onClick={backToAdmin}
+      >
+        ← Volver a configuración
+      </button>
+
       <div className="demo-public-shell">
         <section className="demo-public-top">
           <div className="demo-public-card demo-brand-card">
@@ -57,23 +69,22 @@ export default function DemoPublicScreen() {
             </div>
           </div>
 
-          <div className="demo-public-card">
-            <h2 style={{ marginTop: 0 }}>Redes y contacto</h2>
+          <div className="demo-public-card demo-contact-card">
+            <h2>Redes y contacto</h2>
             <p>
               <strong>Instagram:</strong> {data.business.instagram}
             </p>
             <p>
               <strong>WhatsApp:</strong> {data.business.whatsapp}
             </p>
-            <div className="demo-qr-box">{data.business.qrText}</div>
           </div>
         </section>
 
         <section className="demo-public-layout">
-          <article className="demo-public-card">
+          <article className="demo-public-card demo-contest-card">
             <h2 className="demo-contest-title">{data.contest.title}</h2>
             <p className="demo-prize">{data.contest.prize}</p>
-            <p>{data.contest.description}</p>
+            <p className="demo-contest-description">{data.contest.description}</p>
             <p className="demo-note">
               Fecha sorteo: {formatDateTime(data.contest.drawDate)}
             </p>
@@ -111,8 +122,24 @@ export default function DemoPublicScreen() {
             ) : null}
           </article>
 
-          <article className="demo-public-card">
-            <h2 style={{ marginTop: 0 }}>Ranking TOP 10</h2>
+          <article className="demo-public-card demo-promotions-card">
+            <h2>Promociones activas</h2>
+
+            <div className="demo-promotions-grid">
+              {data.promotions.slice(0, 5).map((promotion, index) => (
+                <div className="demo-promo-public" key={promotion.id}>
+                  <span className="demo-promo-number">{index + 1}</span>
+                  <div>
+                    <h3>{promotion.title}</h3>
+                    <p>{promotion.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="demo-public-card demo-ranking-card">
+            <h2>Ranking TOP 10</h2>
 
             <div className="demo-ranking-list">
               {ranking.map((customer, index) => (
@@ -129,19 +156,17 @@ export default function DemoPublicScreen() {
               ))}
             </div>
           </article>
+        </section>
 
-          <article className="demo-public-card">
-            <h2 style={{ marginTop: 0 }}>Promociones activas</h2>
-
-            <div className="demo-promotions-grid">
-              {data.promotions.slice(0, 5).map((promotion) => (
-                <div className="demo-promo-public" key={promotion.id}>
-                  <h3>{promotion.title}</h3>
-                  <p>{promotion.description}</p>
-                </div>
-              ))}
-            </div>
-          </article>
+        <section className="demo-public-card demo-qr-card">
+          <div className="demo-qr-box">{data.business.qrText}</div>
+          <div>
+            <h2>Escanea y participa</h2>
+            <p>
+              El vendedor puede explicar aquí cómo el cliente final participa,
+              suma puntos y aparece en el ranking.
+            </p>
+          </div>
         </section>
 
         <p className="demo-footer-mark">

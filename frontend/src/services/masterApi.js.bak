@@ -266,22 +266,3 @@ export async function unlockAdminUser({
 
   return result.data;
 }
-export async function deleteMasterBusiness({ businessId, confirmation }) {
-  const response = await fetch(
-    `${API_BASE_URL}/master/businesses/${businessId}/delete`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...getMasterCredentialsPayload(),
-        confirmation,
-      }),
-    }
-  );
-
-  const result = await parseResponse(response);
-
-  return result.data;
-}
