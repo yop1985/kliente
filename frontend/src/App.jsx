@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { Capacitor } from "@capacitor/core";
 
 import PublicHomePage from "./pages/public/PublicHomePage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
@@ -9,8 +10,15 @@ import AdminAccountSecurityPage from "./pages/admin/AdminAccountSecurityPage";
 import MasterLoginPage from "./pages/master/MasterLoginPage";
 import MasterDashboardPage from "./pages/master/MasterDashboardPage";
 
+import DemoLocalAdmin from "./demo/DemoLocalAdmin";
+import DemoPublicScreen from "./demo/DemoPublicScreen";
+
 import { getAdminNextStep, isAdminLoggedIn } from "./services/adminApi";
 import { isMasterLoggedIn } from "./services/masterApi";
+
+const IS_NATIVE_APP = Capacitor.isNativePlatform();
+const IS_APK_DEMO = import.meta.env.VITE_APK_DEMO === "true";
+const SHOULD_FORCE_DEMO = IS_NATIVE_APP || IS_APK_DEMO;
 
 function AdminRoute({ children }) {
   if (!isAdminLoggedIn()) {
@@ -67,7 +75,19 @@ function MasterRoute({ children }) {
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<PublicHomePage />} />
+      <Route
+        path="/"
+        element={
+          SHOULD_FORCE_DEMO ? (
+            <Navigate to="/demo-admin" replace />
+          ) : (
+            <PublicHomePage />
+          )
+        }
+      />
+
+      <Route path="/demo-admin" element={<DemoLocalAdmin />} />
+      <Route path="/demo-public" element={<DemoPublicScreen />} />
 
       <Route path="/admin/login" element={<AdminLoginPage />} />
 
@@ -104,12 +124,18 @@ export default function App() {
         }
       />
 
-      <Route
-        path="/mitnick"
-        element={<Navigate to="/mitnick/dashboard" replace />}
-      />
+      <Route path="/mitnick" element={<Navigate to="/mitnick/dashboard" replace />} />
 
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route
+        path="*"
+        element={
+          SHOULD_FORCE_DEMO ? (
+            <Navigate to="/demo-admin" replace />
+          ) : (
+            <Navigate to="/" replace />
+          )
+        }
+      />
     </Routes>
   );
 }
